@@ -228,23 +228,21 @@ async function loadPublicGallery() {
 
     const { data } = await query;
 
-    grid.innerHTML = data.map(i => `
-        <div class="product-card">
-            <img src="${i.image_url}" onclick="openLightbox('${i.image_url}')">
+   // ابحث عن هذا الجزء داخل loadPublicGallery وحدثه ليكون هكذا:
+grid.innerHTML = data.map(i => `
+    <div class="product-card">
+        <div class="category-label">${i.category || "آخر"}</div>
+        
+        <img src="${i.image_url}" onclick="openLightbox('${i.image_url}')">
 
-            <div style="padding:15px">
-                <h3 style="color:var(--primary); margin:0">${i.title}</h3>
-
-                <div class="category-label">
-                    ${i.category || "آخر"}
-                </div>
-
-                <p style="color:var(--text-muted); font-size:0.9rem;">
-                    ${i.description || ""}
-                </p>
-            </div>
+        <div style="padding:15px; text-align: right;">
+            <h3 style="color:var(--primary); margin:0">${i.title}</h3>
+            <p style="color:var(--text-muted); font-size:0.9rem; margin-top:5px;">
+                ${i.description || ""}
+            </p>
         </div>
-    `).join('');
+    </div>
+`).join('');
 }
 
 function openLightbox(src) { 
@@ -254,7 +252,19 @@ function openLightbox(src) {
 function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
 // --- قائمة الهاتف ---
 function toggleMenu() {
-    document.getElementById('nav-links').classList.toggle('active');
+    const navLinks = document.getElementById('nav-links');
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const icon = menuBtn.querySelector('i');
+
+    navLinks.classList.toggle('active'); // فتح/إغلاق القائمة
+    menuBtn.classList.toggle('menu-open'); // تفعيل حركة الدوران
+
+    // تغيير الأيقونة من ثلاث شحطات إلى X
+    if (navLinks.classList.contains('active')) {
+        icon.classList.replace('fa-bars', 'fa-times');
+    } else {
+        icon.classList.replace('fa-times', 'fa-bars');
+    }
 }
 
 // لإغلاق القائمة تلقائياً عند الضغط على أي زر فيها
