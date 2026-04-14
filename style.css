@@ -271,3 +271,47 @@ input, textarea { width: 100%; background: #000; border: 1px solid #333; color: 
     filter: drop-shadow(0 0 15px rgba(0, 255, 65, 0.5));
     position: relative;
 }
+#filter-category {
+    display: block;
+    margin: auto;
+}
+/* ================= اختيار الأقسام الفخم ================= */
+.category-select {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(145deg, #000, #0a0a0a);
+    border: 1px solid rgba(0,255,65,0.4);
+    color: var(--primary);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.category-select:hover {
+    box-shadow: 0 0 15px var(--primary);
+    border-color: var(--primary);
+}
+
+.category-select:focus {
+    outline: none;
+    box-shadow: 0 0 25px var(--primary);
+}
+/* زر إغلاق الصورة */
+.close-lightbox {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 35px;
+    color: white;
+    cursor: pointer;
+    z-index: 6000;
+    transition: 0.3s;
+}
+
+.close-lightbox:hover {
+    color: var(--primary);
+    text-shadow: 0 0 15px var(--primary);
+}
