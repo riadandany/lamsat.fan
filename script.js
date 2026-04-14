@@ -101,6 +101,17 @@ async function switchAdminTab(tab) {
                 <input type="file" id="up-file">
                 <input type="text" id="up-title" placeholder="العنوان">
                 <textarea id="up-desc" placeholder="الوصف"></textarea>
+                <select id="up-category" class="category-select">
+    <option value="كرت فيزيت">كرت فيزيت</option>
+    <option value="فلكسة">فلكسة</option>
+    <option value="دفتر فواتير">دفتر فواتير</option>
+    <option value="ختم">ختم</option>
+    <option value="بروشور">بروشور</option>
+    <option value="دعوة وتس">دعوة وتس</option>
+    <option value="آيات قرآنية">آيات قرآنية</option>
+    <option value="شهادة وفاة">شهادة وفاة</option>
+    <option value="آخر">آخر</option>
+</select>
                 <button class="submit-btn" onclick="handleUpload()">نشر الآن</button>
             </div>
             <div id="admin-list" class="dynamic-grid"></div>
@@ -166,7 +177,7 @@ async function loadAdminList() {
         <div class="product-card">
             <img src="${i.image_url}">
             <div class="admin-card-actions">
-                <button class="btn-edit" onclick="openEdit(${i.id},'${i.title}','${i.description||""}')">تعديل</button>
+                <button class="btn-edit" onclick="openEdit(${i.id},'${i.title}','${i.description||""}','${i.category||""}')">تعديل</button>
                 <button class="btn-delete" onclick="openDeleteModal(${i.id}, 'work')">حذف</button>
             </div>
         </div>
@@ -174,10 +185,13 @@ async function loadAdminList() {
 }
 
 // --- التعديل ---
-function openEdit(id, title, desc) {
+function openEdit(id, title, desc, category) {
     currentEditId = id;
-    document.getElementById('edit-title').value = title;
-    document.getElementById('edit-desc').value = desc;
+
+    document.getElementById('edit-title').value = title || "";
+    document.getElementById('edit-desc').value = desc || "";
+    document.getElementById('edit-category').value = category || "آخر";
+
     document.getElementById('edit-overlay').style.display = 'flex';
 }
 
@@ -186,7 +200,14 @@ function closeEdit() { document.getElementById('edit-overlay').style.display = '
 async function updateWork() {
     const t = document.getElementById('edit-title').value;
     const d = document.getElementById('edit-desc').value;
-    await _supabase.from('images').update({ title: t, description: d }).eq('id', currentEditId);
+    const c = document.getElementById('edit-category').value;
+
+    await _supabase.from('images').update({
+        title: t,
+        description: d,
+        category: c
+    }).eq('id', currentEditId);
+
     showToast("تم التحديث بنجاح");
     closeEdit();
     loadAdminList();
@@ -195,14 +216,32 @@ async function updateWork() {
 // --- العرض للجمهور ---
 async function loadPublicGallery() {
     const grid = document.getElementById('gallery-grid');
+    const selected = document.getElementById('filter-category')?.value || "الكل";
+
     grid.innerHTML = "جاري التحميل...";
-    const { data } = await _supabase.from('images').select('*').order('created_at', {ascending: false});
+
+    let query = _supabase.from('images').select('*').order('created_at', {ascending: false});
+
+    if(selected !== "الكل") {
+        query = query.eq('category', selected);
+    }
+
+    const { data } = await query;
+
     grid.innerHTML = data.map(i => `
         <div class="product-card">
             <img src="${i.image_url}" onclick="openLightbox('${i.image_url}')">
+
             <div style="padding:15px">
                 <h3 style="color:var(--primary); margin:0">${i.title}</h3>
-                <p style="color:var(--text-muted); font-size:0.9rem; margin-top:5px;">${i.description||""}</p>
+
+                <div class="category-label">
+                    ${i.category || "آخر"}
+                </div>
+
+                <p style="color:var(--text-muted); font-size:0.9rem;">
+                    ${i.description || ""}
+                </p>
             </div>
         </div>
     `).join('');
