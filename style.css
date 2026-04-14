@@ -271,9 +271,15 @@ input, textarea { width: 100%; background: #000; border: 1px solid #333; color: 
     filter: drop-shadow(0 0 15px rgba(0, 255, 65, 0.5));
     position: relative;
 }
-#filter-category {
-    display: block;
-    margin: auto;
+.category-label {
+    display: inline-block;
+    background-color: var(--primary) !important; /* خلفية خضراء */
+    color: #000 !important; /* خط أسود */
+    padding: 2px 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 4px; /* زوايا بسيطة */
+    margin-top: 5px;
 }
 /* ================= اختيار الأقسام الفخم ================= */
 .category-select {
@@ -290,14 +296,44 @@ input, textarea { width: 100%; background: #000; border: 1px solid #333; color: 
     transition: 0.3s;
 }
 
-.category-select:hover {
-    box-shadow: 0 0 15px var(--primary);
-    border-color: var(--primary);
+/* هذا الكود سيجعل كل القوائم في الموقع (العرض، الإضافة، التعديل) بنفس الشكل الفخم */
+.category-select {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(145deg, #000, #0a0a0a);
+    border: 1px solid rgba(0,255,65,0.4);
+    color: var(--primary);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.category-select:focus {
+select:hover {
+    background: var(--primary);
+    color: black;
+}
+
+/* هذا الكود سيجعل كل القوائم في الموقع (العرض، الإضافة، التعديل) بنفس الشكل الفخم */
+select, #filter-category, .category-select {
+    appearance: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 10px 25px;
+    border-radius: 50px; /* شكل بيضاوي */
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.3s;
     outline: none;
-    box-shadow: 0 0 25px var(--primary);
+}
+
+select:hover {
+    background: var(--primary);
+    color: black;
 }
 /* زر إغلاق الصورة */
 .close-lightbox {
@@ -314,4 +350,11 @@ input, textarea { width: 100%; background: #000; border: 1px solid #333; color: 
 .close-lightbox:hover {
     color: var(--primary);
     text-shadow: 0 0 15px var(--primary);
+}
+.mobile-menu-btn i {
+    transition: 0.4s all ease-in-out;
+}
+/* هذا الكلاس سنضيفه بالـ JS عند الضغط */
+.menu-open i {
+    transform: rotate(180deg);
 }
