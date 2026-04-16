@@ -272,14 +272,16 @@ input, textarea { width: 100%; background: #000; border: 1px solid #333; color: 
     position: relative;
 }
 .category-label {
-    display: inline-block;
-    background-color: var(--primary) !important; /* خلفية خضراء */
-    color: #000 !important; /* خط أسود */
-    padding: 2px 10px;
-    font-size: 0.8rem;
+    display: block; /* يجعله يأخذ سطر مستقل */
+    background-color: var(--primary) !important;
+    color: #000 !important;
+    padding: 4px 15px;
+    font-size: 0.85rem;
     font-weight: bold;
-    border-radius: 4px; /* زوايا بسيطة */
-    margin-top: 5px;
+    border-radius: 4px;
+    margin: 10px auto; /* هذا هو السر في التوسيط تحت الصورة */
+    width: fit-content; /* ليكون المربع على مقاس الكلمة فقط */
+    text-align: center;
 }
 /* ================= اختيار الأقسام الفخم ================= */
 .category-select {
@@ -357,4 +359,282 @@ select:hover {
 /* هذا الكلاس سنضيفه بالـ JS عند الضغط */
 .menu-open i {
     transform: rotate(180deg);
+}
+/* شاشة الدخول التفاعلية */
+#intro-overlay {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 1.2s cubic-bezier(0.9, 0, 0.1, 1);
+}
+
+.intro-content {
+    text-align: center;
+    padding: 20px;
+}
+
+/* حركة النص المتوهج */
+.glitch-title {
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 900;
+    color: var(--primary);
+    letter-spacing: 20px;
+    position: relative;
+    text-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
+    animation: titleFloat 3s ease-in-out infinite;
+}
+
+.luxury-line {
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    margin: 20px auto;
+    animation: lineExpand 2s forwards 0.5s;
+    box-shadow: 0 0 15px var(--primary);
+}
+
+.reveal-text {
+    font-size: 1.2rem;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1.5s forwards 1s;
+    letter-spacing: 3px;
+}
+
+/* الزر السحري */
+.magic-btn {
+    margin-top: 40px;
+    padding: 15px 50px;
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    font-size: 1.1rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.magic-btn:hover {
+    background: var(--primary);
+    color: #000;
+    box-shadow: 0 0 50px var(--primary);
+    transform: scale(1.1);
+}
+
+/* حركات الأنيميشن الخيالية */
+@keyframes titleFloat {
+    0%, 100% { transform: translateY(0); filter: hue-rotate(0deg); }
+    50% { transform: translateY(-20px); filter: hue-rotate(45deg); }
+}
+
+@keyframes lineExpand {
+    to { width: 80%; }
+}
+
+@keyframes fadeInUp {
+    to { opacity: 0.8; transform: translateY(0); }
+}
+
+/* حركة اختفاء الشاشة */
+.exit-animation {
+    transform: scale(2);
+    opacity: 0;
+    filter: blur(20px);
+    pointer-events: none;
+}
+/* تأثير ظهور المحتوى من الأسفل للأعلى */
+
+.page-section.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* إطار العنوان المتغير الألوان تدريجياً */
+.luxury-line {
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #00ff41, #00d2ff, #00ff41);
+    background-size: 200% 100%;
+    margin: 20px auto;
+    animation: lineExpand 2s forwards, gradientMove 3s linear infinite;
+    box-shadow: 0 0 15px var(--primary);
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+@keyframes lineExpand {
+    to { width: 80%; }
+}
+
+/* تأثير التلاشي عند التنقل */
+.fade-out {
+    opacity: 0 !important;
+    transform: translateY(-20px) !important;
+    transition: all 0.5s ease;
+}
+/* 1. تأثير الظهور التدريجي لكل الأقسام */
+
+
+.page-section.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 2. إطار العنوان المتغير الألوان (الحيوي) */
+.dynamic-frame {
+    display: inline-block;
+    padding: 10px 25px;
+    border: 2px solid;
+    border-image-source: linear-gradient(90deg, #00ff41, #00d2ff, #ff00c8, #00ff41);
+    border-image-slice: 1;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    animation: frameGlow 4s linear infinite;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+}
+
+@keyframes frameGlow {
+    0% { filter: hue-rotate(0deg); box-shadow: 0 0 15px rgba(0, 255, 65, 0.4); }
+    100% { filter: hue-rotate(360deg); box-shadow: 0 0 15px rgba(0, 255, 65, 0.4); }
+}
+
+/* 3. تأثير التلاشي عند الخروج من الصفحة */
+.fade-exit {
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: all 0.5s ease-in;
+}
+/* تدريج الألوان المتحرك للأخضر والريشي */
+@keyframes flowGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* تطبيق الألوان المتحركة على العناوين */
+.main-title span, .hero-subtitle {
+    background: linear-gradient(90deg, #00ff41, #00f5ff, #00ff41);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: flowGradient 3s linear infinite;
+    display: inline-block;
+}
+
+/* إعادة شكل الزر القديم مع جعل ألوانه تتحرك */
+.pulse-button.magic-dynamic-btn {
+    background: linear-gradient(-45deg, #00ff41, #00f5ff, #00ff41, #00f5ff);
+    background-size: 400% 400%;
+    animation: flowGradient 3s ease infinite, pulse 2s infinite; /* نبض + ألوان متحركة */
+    color: #000 !important; /* نص أسود واضح */
+    font-weight: bold;
+    border: none;
+    padding: 12px 35px;
+    border-radius: 50px; /* شكل بيضاوي مثل القديم */
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+    font-size: 1.1rem;
+}
+
+/* أنيميشن النبض (Pulse) للزر */
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 255, 65, 0.4); }
+    50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 245, 255, 0.6); }
+    100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 255, 65, 0.4); }
+}
+
+/* لضمان بقاء الصورة بالحجم المناسب */
+.hero-logo {
+    max-width: 180px;
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 65, 0.3));
+} 
+/* حل مشكلة ظهور كل الصفحات: إخفاء كل الأقسام عدا النشط */
+
+
+/* القسم النشط فقط هو الذي يظهر */
+
+
+/* الألوان المتحركة (أخضر وريشي) */
+@keyframes colorFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.main-title span, .hero-subtitle {
+    background: linear-gradient(90deg, #00ff41, #00f5ff, #00ff41);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: colorFlow 4s linear infinite;
+}
+
+/* الزر باللون الأسود والألوان المتحركة */
+.magic-dynamic-btn {
+    background: linear-gradient(-45deg, #00ff41, #00f5ff, #00ff41);
+    background-size: 300% 300%;
+    animation: colorFlow 3s ease infinite, pulse 2s infinite;
+    color: #000 !important;
+    border-radius: 50px;
+    padding: 12px 35px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.hero-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+/* 1. التنسيق الموحد لكل الأقسام (مخفي افتراضياً) */
+.page-section {
+    display: none !important; /* إخفاء إجباري */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    width: 100%;
+    min-height: 80vh;
+    /* التمركز الضروري */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* 2. القسم النشط (يتم تفعيله بواسطة الجافا سكريبت) */
+.page-section.active {
+    display: flex !important; /* تحويله إلى Flex حصراً عند النشاط */
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* 3. حاوية المحتوى داخل الصفحة الرئيسية لضمان الترتيب الرأسي */
+.hero-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px; /* المسافة بين اللوجو والعنوان والزر */
+    width: 100%;
+}
+
+/* 4. كلاس التلاشي عند الخروج لمنع القفز البصري */
+.fade-out {
+    opacity: 0 !important;
+    transform: translateY(-20px) !important;
+    transition: all 0.5s ease;
 }
