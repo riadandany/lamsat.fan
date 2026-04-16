@@ -4,12 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لمسة فن | Lamsat Fann</title>
+    
+    <link rel="icon" type="image/png" href="1775941528753.png">
+    <link rel="apple-touch-icon" href="1775941528753.png">
+    <meta property="og:image" content="https://lamsat-fan.vercel.app/1775941528753.png">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
+ <div id="intro-overlay">
+    <div class="intro-content">
+        <h1 class="glitch-title" data-text="LAMSAT FANN">LAMSAT FANN</h1>
+        <div class="luxury-line"></div>
+        <p class="reveal-text">أهلاً بك في عالم التصميم.. حيث تضيع الحدود بين الخيال والواقع</p>
+    </div>
+</div>
 
+<audio id="audio-ambient" src="ambient.mp3" loop></audio>
+<audio id="audio-transition" src="transition.mp3"></audio>
     <div id="toast-container" class="toast-container"></div>
 
    <nav class="luxury-nav">
@@ -31,23 +45,33 @@
     </nav>
 
     <main id="content-area">
-        <section id="home" class="page active">
-            <div class="hero-section">
-                <img src="1775941528753.png" class="hero-logo" alt="Logo">
-              <h1 class="main-title decorated">
-    <span>لمسة فن</span>
-</h1>
-                <p class="hero-subtitle">حيث ينتهي التقليد.. يبدأ الإبداع. لمسة فن: بصمتك الاستثنائية في عالمٍ من الألوان</p>
-                <button class="pulse-button" onclick="showPage('gallery')">استعرض أعمالنا</button>
-            </div>
-        </section>
+      
+   <section id="home" class="page-section">
+    <div class="hero-content-wrapper" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+        <img src="1775941528753.png" class="hero-logo" alt="Logo" style="width: 180px; height: auto;">
+
+        <div class="dynamic-frame">
+            <h1 class="main-title decorated">
+                <span>لمسة فن</span>
+            </h1>
+        </div>
+
+        <p class="hero-subtitle">
+            حيث ينتهي التقليد.. يبدأ الإبداع. لمسة فن: بصمتك الاستثنائية في عالمٍ من الألوان
+        </p>
+
+        <button class="pulse-button magic-dynamic-btn" onclick="showPageWithAnimation('gallery')">
+            استعرض أعمالنا
+        </button>
+    </div>
+</section>
 
       <section id="gallery" class="page">
 
     <h2 class="section-header glow-text" style="text-align: center; margin-top: 40px;">
         تصفح اعمالنا التي لا مثيل لها
     </h2>
-      <p class="hero-subtitle">ابحث بين الاقسام</p>
+    <p class="hero-subtitle" style="text-align: center; width: 100%;">ابحث بين الاقسام</p>
 
     <!-- فلتر الأقسام -->
     <div style="text-align:center; margin:20px;">
@@ -65,14 +89,16 @@
         </select>
     </div>
 
+        
+     
+        
     <div id="gallery-grid" class="dynamic-grid"></div>
 </section>
         
-   
-
-        <section id="contact" class="page">
+      <section id="contact" class="page">
             <div class="contact-container">
                 <div class="contact-info-row glass-box" style="margin-bottom: 25px; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 15px; padding: 20px;">
+
                     <div class="info-card"><i class="fas fa-map-marker-alt" style="color:var(--primary); margin-left:8px;"></i> حلب - باب النصر - امام الباب الاثري</div>
                     <div class="info-card"><i class="fas fa-phone" style="color:var(--primary); margin-left:8px;"></i> 0980428648</div>
                 </div>
@@ -162,7 +188,7 @@
     <a href="https://wa.me/963980428648" class="whatsapp-float" target="blank-">
         <i class="fab fa-whatsapp"></i>
     </a>
-
-    <script src="script.js"></script>
+</script> 
+    <script src="script.js"></script> 
 </body>
 </html>
