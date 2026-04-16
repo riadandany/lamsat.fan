@@ -229,14 +229,16 @@ async function loadPublicGallery() {
     const { data } = await query;
 
    // ابحث عن هذا الجزء داخل loadPublicGallery وحدثه ليكون هكذا:
+// ابحث عن هذا الجزء داخل دالة loadPublicGallery واستبدله بهذا الترتيب
 grid.innerHTML = data.map(i => `
     <div class="product-card">
-        <div class="category-label">${i.category || "آخر"}</div>
-        
         <img src="${i.image_url}" onclick="openLightbox('${i.image_url}')">
 
-        <div style="padding:15px; text-align: right;">
-            <h3 style="color:var(--primary); margin:0">${i.title}</h3>
+        <div style="padding:15px; text-align: center;">
+            <div class="category-label">${i.category || "آخر"}</div>
+
+            <h3 style="color:var(--primary); margin:10px 0 0 0">${i.title}</h3>
+
             <p style="color:var(--text-muted); font-size:0.9rem; margin-top:5px;">
                 ${i.description || ""}
             </p>
@@ -269,7 +271,123 @@ function toggleMenu() {
 
 // لإغلاق القائمة تلقائياً عند الضغط على أي زر فيها
 function closeMenu() {
-    if(window.innerWidth <= 768) {
-        document.getElementById('nav-links').classList.remove('active');
+    const navLinks = document.getElementById('nav-links');
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const icon = menuBtn?.querySelector('i');
+
+    if(navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        if(menuBtn) menuBtn.classList.remove('menu-open');
+        if(icon) icon.classList.replace('fa-times', 'fa-bars');
     }
 }
+// --- نظام الدخول السينمائي والمؤثرات الصوتية لـ لمسة فن ---
+
+function enterTheWorld() {
+    const intro = document.getElementById('intro-overlay');
+    const ambient = document.getElementById('audio-ambient');
+    
+    // تشغيل الموسيقى الخلفية بهدوء
+    if(ambient) {
+        ambient.volume = 0.2;
+        ambient.play();
+    }
+    
+    // صوت الانتقال الفخم
+    playEffect('audio-transition');
+    
+    // إطلاق أنيميشن الخروج
+    intro.classList.add('exit-animation');
+    
+    // إخفاء الشاشة تماماً بعد انتهاء الأنيميشن
+    setTimeout(() => {
+        intro.style.display = 'none';
+        // يمكنك هنا تشغيل دوال أخرى مثل تحميل المعرض بعد الدخول
+        if (typeof loadPublicGallery === "function") loadPublicGallery();
+    }, 1200);
+}
+
+function playEffect(id) {
+    const sound = document.getElementById(id);
+    if (sound) {
+        sound.currentTime = 0;
+        sound.play().catch(() => console.log("المتصفح يمنع الصوت تلقائياً"));
+    }
+}
+
+// تفعيل الأصوات على كل العناصر التفاعلية بمجرد تحميل الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    const interactiveElements = document.querySelectorAll('button, .product-card, .nav-btn, .mobile-menu-btn');
+    
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => playEffect('audio-hover'));
+        el.addEventListener('click', () => playEffect('audio-click'));
+    });
+});
+// 1. نظام الدخول التلقائي بعد 5 ثوانٍ
+document.addEventListener('DOMContentLoaded', () => {
+    const intro = document.getElementById('intro-overlay');
+    
+    setTimeout(() => {
+        if (intro) {
+            intro.classList.add('exit-animation');
+            setTimeout(() => {
+                intro.style.display = 'none';
+                // تفعيل الصفحة الرئيسية عند الدخول لأول مرة
+                showPageWithAnimation('home');
+            }, 1000);
+        }
+    }, 5000); // 5 ثوانٍ كما طلبت
+});
+
+// 2. الدالة المسؤولة عن تنقل الأزرار (تأكد أن اسمها يطابق الموجود في HTML)
+// 1. نظام الدخول التلقائي المنظم (يستدعى مرة واحدة فقط)
+document.addEventListener('DOMContentLoaded', () => {
+    const intro = document.getElementById('intro-overlay');
+    
+    setTimeout(() => {
+        if (intro) {
+            intro.classList.add('exit-animation');
+            setTimeout(() => {
+                intro.style.display = 'none';
+                // إظهار الصفحة الرئيسية مرة واحدة فقط بوضوح
+                const homeSection = document.getElementById('home');
+                if (homeSection) {
+                    homeSection.style.display = 'flex';
+                    setTimeout(() => {
+                        homeSection.classList.add('active');
+                    }, 50);
+                }
+            }, 1000);
+        }
+    }, 5000); // 5 ثوانٍ للترحيب
+});
+
+// 2. دالة التنقل المحسنة (تمنع الاختفاء عند العودة)
+function showPageWithAnimation(pageId) {
+    const allSections = document.querySelectorAll('.page-section');
+    const targetSection = document.getElementById(pageId);
+    const currentSection = document.querySelector('.page-section.active');
+
+    // إذا كان المستخدم يحاول فتح الصفحة المفتوحة أصلاً، لا تفعل شيئاً
+    if (currentSection && currentSection.id === pageId) return;
+
+    if (currentSection) {
+        currentSection.classList.add('fade-out');
+        setTimeout(() => {
+            currentSection.classList.remove('active', 'fade-out');
+            currentSection.style.display = 'none';
+
+            if (targetSection) {
+                targetSection.style.display = 'flex';
+                setTimeout(() => {
+                    targetSection.classList.add('active');
+                }, 50);
+            }
+        }, 600);
+    } else if (targetSection) {
+        targetSection.style.display = 'flex';
+        targetSection.classList.add('active');
+    }
+}
+
