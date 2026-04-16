@@ -360,34 +360,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }, 1000);
         }
-    }, 5000); // 5 ثوانٍ للترحيب
+    }, 3000); // 5 ثوانٍ للترحيب
 });
-
-// 2. دالة التنقل المحسنة (تمنع الاختفاء عند العودة)
-function showPageWithAnimation(pageId) {
-    const allSections = document.querySelectorAll('.page-section');
-    const targetSection = document.getElementById(pageId);
-    const currentSection = document.querySelector('.page-section.active');
-
-    // إذا كان المستخدم يحاول فتح الصفحة المفتوحة أصلاً، لا تفعل شيئاً
-    if (currentSection && currentSection.id === pageId) return;
-
-    if (currentSection) {
-        currentSection.classList.add('fade-out');
-        setTimeout(() => {
-            currentSection.classList.remove('active', 'fade-out');
-            currentSection.style.display = 'none';
-
-            if (targetSection) {
-                targetSection.style.display = 'flex';
-                setTimeout(() => {
-                    targetSection.classList.add('active');
-                }, 50);
-            }
-        }, 600);
-    } else if (targetSection) {
-        targetSection.style.display = 'flex';
-        targetSection.classList.add('active');
-    }
-}
-
