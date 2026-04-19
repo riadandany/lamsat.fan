@@ -14351,7 +14351,7 @@
                         className: "hero-section",
                         children: [(0,
                         Lt.jsx)("img", {
-                            src: "https://customer-assets.emergentagent.com/job_2f9a6599-6bc4-4224-8bce-b59cd468f774/artifacts/1775941528753.png",
+                            src: "1775941528753.png",
                             className: "hero-logo",
                             alt: "Logo"
                         }), (0,
