@@ -14226,10 +14226,36 @@
                             "data-testid": "login-submit",
                             onClick: async () => {
                                 try {
-                                    (await Rt.post("".concat(At, "/auth/login"), {
-                                        username: g,
-                                        password: v
-                                    })).data.success && (r(!0),
+                                 import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  "https://pntqobqhaggvcjtyspvb.supabase.co",
+  "YOUR_ANON_KEY"
+);
+
+const { data, error } = await supabase
+  .from("admin_users")
+  .select("*")
+  .eq("username", g)
+  .single();
+
+if (error || !data) {
+  j("المستخدم غير موجود");
+  return;
+}
+
+if (v !== data.password) {
+  j("كلمة السر غير صحيحة");
+  return;
+}
+
+// نجاح تسجيل الدخول
+r(!0);
+s("1");
+t("admin");
+j("تم تسجيل الدخول بنجاح");
+y("");
+b("");).data.success && (r(!0),
                                     s(!1),
                                     t("admin"),
                                     J("\u0645\u0631\u062d\u0628\u0627\u064b \u0623\u064a\u0647\u0627 \u0627\u0644\u0645\u0637\u0648\u0631"),
