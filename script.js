@@ -13901,7 +13901,7 @@
     zt.default = zt;
     const Rt = zt;
     var Lt = n(579);
-    const At = "".concat("https://lamsat-fan-ten.vercel.app", "/api")
+    const At = "".concat("https://pntqobqhaggvcjtyspvb.supabase.co", "/api")
       , Ft = "https://pntqobqhaggvcjtyspvb.supabase.co"
       , Dt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBudHFvYnFoYWdndmNqdHlzcHZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU5MjYwNjQsImV4cCI6MjA5MTUwMjA2NH0.fdl8d8I0UoDyWGDPK0VNUZBaEBQD4cz-ReowhbtxH0k";
     const Mt = function() {
@@ -14084,9 +14084,7 @@
                         className: "reveal-text",
                         children: "\u0623\u0647\u0644\u0627\u064b \u0628\u0643 \u0641\u064a \u0639\u0627\u0644\u0645 \u0627\u0644\u062a\u0635\u0645\u064a\u0645.. \u062d\u064a\u062b \u062a\u0636\u064a\u0639 \u0627\u0644\u062d\u062f\u0648\u062f \u0628\u064a\u0646 \u0627\u0644\u062e\u064a\u0627\u0644 \u0648\u0627\u0644\u0648\u0627\u0642\u0639"
                     })]
-            
-                
-            })
+                })
             }), u && f && (0,
             Lt.jsx)("div", {
                 className: "modal-overlay",
@@ -14228,37 +14226,10 @@
                             "data-testid": "login-submit",
                             onClick: async () => {
                                 try {
-                                    (import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  "https://pntqobqhaggvcjtyspvb.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBudHFvYnFoYWdndmNqdHlzcHZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU5MjYwNjQsImV4cCI6MjA5MTUwMjA2NH0.fdl8d8I0UoDyWGDPK0VNUZBaEBQD4cz-ReowhbtxH0k"
-);
-
-const { data, error } = await supabase
-  .from("admin_users")
-  .select("*")
-  .eq("username", g)
-  .single();
-
-if (error || !data) {
-  j("المستخدم غير موجود");
-  return;
-}
-
-if (v !== data.password) {
-  j("كلمة السر غير صحيحة");
-  return;
-}
-
-// نجاح تسجيل الدخول
-r(!0);
-s("1");
-t("admin");
-j("تم تسجيل الدخول بنجاح");
-y("");
-b(""); ).data.success && 
-                                    (r(!0),
+                                    (await Rt.post("".concat(At, "/auth/login"), {
+                                        username: g,
+                                        password: v
+                                    })).data.success && (r(!0),
                                     s(!1),
                                     t("admin"),
                                     J("\u0645\u0631\u062d\u0628\u0627\u064b \u0623\u064a\u0647\u0627 \u0627\u0644\u0645\u0637\u0648\u0631"),
