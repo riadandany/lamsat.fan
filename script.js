@@ -14226,11 +14226,11 @@
                             "data-testid": "login-submit",
                             onClick: async () => {
                                 try {
-                                 import { createClient } from "@supabase/supabase-js";
+                                 ( import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
   "https://pntqobqhaggvcjtyspvb.supabase.co",
-  "YOUR_ANON_KEY"
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBudHFvYnFoYWdndmNqdHlzcHZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU5MjYwNjQsImV4cCI6MjA5MTUwMjA2NH0.fdl8d8I0UoDyWGDPK0VNUZBaEBQD4cz-ReowhbtxH0k"
 );
 
 const { data, error } = await supabase
