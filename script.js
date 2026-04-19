@@ -13901,7 +13901,7 @@
     zt.default = zt;
     const Rt = zt;
     var Lt = n(579);
-    const At = "".concat("https://pntqobqhaggvcjtyspvb.supabase.co", "/api")
+    const At = "".concat("", "/api")
       , Ft = "https://pntqobqhaggvcjtyspvb.supabase.co"
       , Dt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBudHFvYnFoYWdndmNqdHlzcHZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU5MjYwNjQsImV4cCI6MjA5MTUwMjA2NH0.fdl8d8I0UoDyWGDPK0VNUZBaEBQD4cz-ReowhbtxH0k";
     const Mt = function() {
